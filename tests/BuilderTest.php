@@ -20,7 +20,7 @@ class BuilderTest extends TestCase
         $builder = $this->getBuilder('MySql');
         $builder->getConnection()->getReadPdo()->method('getAttribute')->willReturn('8.0.11');
         $builder->from('posts')->groupLimit(10);
-        $expected = 'select * from (select *, row_number() as laravel_row from `posts`) as laravel_table where laravel_row <= 10 order by laravel_row';
+        $expected = 'select * from (select *, row_number() over () as laravel_row from `posts`) as laravel_table where laravel_row <= 10 order by laravel_row';
         $this->assertEquals($expected, $builder->toSql());
 
         $builder = $this->getBuilder('MySql');

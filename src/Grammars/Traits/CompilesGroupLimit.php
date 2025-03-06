@@ -80,10 +80,6 @@ trait CompilesGroupLimit
 
         $over = trim($partition.' '.$orders);
 
-        if (!empty($over)) {
-            $over = 'over ('.$over.') ';
-        }
-
-        return ', row_number() '.$over.'as laravel_row';
+        return ', row_number() over ('.$over.') as laravel_row';
     }
 }
