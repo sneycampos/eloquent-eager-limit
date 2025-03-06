@@ -74,10 +74,16 @@ trait CompilesGroupLimit
      */
     protected function compileRowNumber($partition, $orders)
     {
-        $partition = 'partition by '.$this->wrap($partition);
+        if (!empty($partition)) {
+            $partition = 'partition by '.$this->wrap($partition);
+        }
 
         $over = trim($partition.' '.$orders);
 
-        return ', row_number() over ('.$over.') as laravel_row';
+        if (!empty($over)) {
+            $over = 'over ('.$over.') ';
+        }
+
+        return ', row_number() '.$over.'as laravel_row';
     }
 }

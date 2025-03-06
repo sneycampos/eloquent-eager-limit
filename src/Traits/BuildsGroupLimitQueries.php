@@ -15,10 +15,10 @@ trait BuildsGroupLimitQueries
      * Add a "group limit" clause to the query.
      *
      * @param int $value
-     * @param string $column
+     * @param ?string $column
      * @return $this
      */
-    public function groupLimit($value, $column)
+    public function groupLimit($value, $column = null)
     {
         if ($value >= 0) {
             $this->groupLimit = compact('value', 'column');
